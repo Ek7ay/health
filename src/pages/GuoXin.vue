@@ -200,8 +200,10 @@
             telError: '',             //电话错误提示
             addressError: '',         //详细地址校验
 
-            plotDateList: [],              //查询出来的小区信息列表
-            unitDataList: [],              //查询出来的单位学校信息列表
+            plotDateList: [],         //查询出来的小区信息列表
+            unitDataList: [],         //查询出来的单位学校信息列表
+
+            demand: 0,               //决定是否调查询
           }
         },
         created () {
@@ -238,6 +240,12 @@
           address: function (val) {
             if (val) {
               this.addressError = '';
+            }
+          },
+          // 监听身份证号码是否发生变化
+          idcard (newVal, oldVal) {
+            if (newVal !== oldVal) {
+              this.demand = 0;
             }
           }
         },
@@ -330,7 +338,8 @@
           // 根据身份证查询用户信息
           identityQuery () {
             this.idCardError = "";
-            if (this.idcard && this.idCardTest(this.idcard)) {
+            if (this.demand === 0 && this.idcard && this.idCardTest(this.idcard)) {
+              this.demand ++;
               idQuery( this.idcard ).then( res => {
                 this.name = res.data[0].name;
                 this.sex = res.data[0].sexName;
