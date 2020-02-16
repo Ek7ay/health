@@ -1,4 +1,5 @@
 import axios from 'axios'
+axios.defaults.baseURL = "/api";
 
 export default function ajax(url = '', params = {}, type = 'GET') {
     // 1. 变量
@@ -33,8 +34,8 @@ export default function ajax(url = '', params = {}, type = 'GET') {
             // 2.6 发起get请求
             promise = axios.get(url);
         } else if (type.toUpperCase() === 'POST') { // post请求
-            // 2.7 发起post请求
-            promise = axios.post(url, params);
+          // 2.7 发起post请求
+          promise = axios.post(url, params);
         }
         // 2.8 处理结果并返回
         promise.then((response) => {

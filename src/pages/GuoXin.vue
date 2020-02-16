@@ -166,8 +166,6 @@
 
 <script>
     import { saveInfo, idQuery, UnitInquiry, PlotInquiry } from '../serve/index.js'
-    // import axios from 'axios'
-    // axios.defaults.headers.post['Content-Type'] = 'application/json';
 
     export default {
         data () {
@@ -316,7 +314,7 @@
               remark: this.remark
             };
             saveInfo(data).then( res => {
-              console.log(res);
+              this.$toast(res.msg);
             })
           },
           // 身份证格式校验，用于查询
@@ -334,41 +332,20 @@
             this.idCardError = "";
             if (this.idcard && this.idCardTest(this.idcard)) {
               idQuery( this.idcard ).then( res => {
-                console.log(res);
-                this.name = res.data.name;
-                this.sex = res.data.sexName;
-                this.tel = res.data.tel;
-                this.xiaoqu = res.data.xiaoquName;
-                this.address = res.data.address;
-                this.isfare = res.data.isfare == 3 ? "是" : "否";
-                this.iskesou = res.data.iskesouName;
-                this.isjiechu = res.data.isjiechuName;
-                this.danwei = res.data.danweiName;
-                this.keshi = res.data.keshi;
-                this.remark = res.data.remark;
-              })
+                this.name = res.data[0].name;
+                this.sex = res.data[0].sexName;
+                this.tel = res.data[0].tel;
+                this.xiaoqu = res.data[0].xiaoquName;
+                this.address = res.data[0].address;
+                this.isfare = res.data[0].isfare == 3 ? "是" : "否";
+                this.iskesou = res.data[0].iskesouName;
+                this.isjiechu = res.data[0].isjiechuName;
+                this.danwei = res.data[0].danweiName;
+                this.keshi = res.data[0].keshi;
+                this.remark = res.data[0].remark;
+              }).catch((error) => {})     //错误处理
             }
-          },
-          // identityQuery () {
-          //   this.idCardError = "";
-          //   if (this.idcard && this.idCardTest(this.idcard)) {
-          //     axios.post("http://app.fowardfuture.com/ws/getByIdcard",{idcard: this.idcard})
-          //       .then(res=>{
-          //         console.log(res);
-          //         this.name = res.data.name;
-          //         this.sex = res.data.sexName;
-          //         this.tel = res.data.tel;
-          //         this.xiaoqu = res.data.xiaoquName;
-          //         this.address = res.data.address;
-          //         this.isfare = res.data.isfare == 3 ? "是" : "否";
-          //         this.iskesou = res.data.iskesouName;
-          //         this.isjiechu = res.data.isjiechuName;
-          //         this.danwei = res.data.danweiName;
-          //         this.keshi = res.data.keshi;
-          //         this.remark = res.data.remark;
-          //       });
-          //   }
-          // },
+          }
         }
     }
 </script>
