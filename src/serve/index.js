@@ -21,7 +21,7 @@ export const phoneCaptchaLogin = (phone, captcha) => ajax(baseUrl + 'login_code'
 /***** 健康调查表接口 *********/
 // 1,存储用户信息（POST）
 export const saveInfo = (data) => ajax(BASEUrl + 'save', {
-  data
+  ...data
 }, 'POST');
 
 // 2,根据身份证号反显用户信息

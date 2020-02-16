@@ -199,11 +199,15 @@
             nameError: '',            //姓名错误提示
             telError: '',             //电话错误提示
             addressError: '',         //详细地址校验
+
+            plotDateList: [],              //查询出来的小区信息列表
+            unitDataList: [],              //查询出来的单位学校信息列表
           }
         },
         created () {
           //查询小区信息
           PlotInquiry().then( res => {
+            this.plotDateList = res.data;
             let plotDate = [];
             res.data.map((item, index) => {
               plotDate.push(item.residential);
@@ -212,6 +216,7 @@
           });
           //查询学校单位信息
           UnitInquiry().then( res => {
+            this.unitDataList = res.data;
             let unitData = [];
             res.data.map((item, index)=> {
               unitData.push(item.name);
@@ -279,17 +284,32 @@
               this.addressError = '请输入详细地址';
               return;
             }
+            // 获取小区id
+            let xiaoquSelect;
+            this.plotDateList.map((item, index) => {
+              if (this.xiaoqu == item.residential) {
+                xiaoquSelect = item.id;
+              }
+            });
+            // 获取单位学校id
+            let danweiSelect;
+            this.unitDataList.map((item, index) => {
+              if (this.danwei == item.name) {
+                danweiSelect = item.id;
+              }
+            });
+
             let data = {
               name: this.name,
               idcard: this.idcard,
               sex: this.sex == "男" ? "1" : "2",
               tel: this.tel,
-              xiaoqu: this.xiaoqu,
+              xiaoqu: xiaoquSelect,
               address: this.address,
               isfare: this.isfare == "是" ? "3" : "4",
               iskesou: this.iskesou == "是" ? "3" : "4",
               isjiechu: this.isjiechu == "是" ? "3" : "4",
-              danwei: this.danwei,
+              danwei: danweiSelect,
               keshi: this.keshi,
               remark: this.remark
             };
@@ -326,7 +346,7 @@
                 this.remark = res.data.remark;
               })
             }
-          }
+          },
         }
     }
 </script>
