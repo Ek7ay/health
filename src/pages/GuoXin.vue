@@ -166,6 +166,8 @@
 
 <script>
     import { saveInfo, idQuery, UnitInquiry, PlotInquiry } from '../serve/index.js'
+    // import axios from 'axios'
+    // axios.defaults.headers.post['Content-Type'] = 'application/json';
 
     export default {
         data () {
@@ -347,6 +349,26 @@
               })
             }
           },
+          // identityQuery () {
+          //   this.idCardError = "";
+          //   if (this.idcard && this.idCardTest(this.idcard)) {
+          //     axios.post("http://app.fowardfuture.com/ws/getByIdcard",{idcard: this.idcard})
+          //       .then(res=>{
+          //         console.log(res);
+          //         this.name = res.data.name;
+          //         this.sex = res.data.sexName;
+          //         this.tel = res.data.tel;
+          //         this.xiaoqu = res.data.xiaoquName;
+          //         this.address = res.data.address;
+          //         this.isfare = res.data.isfare == 3 ? "是" : "否";
+          //         this.iskesou = res.data.iskesouName;
+          //         this.isjiechu = res.data.isjiechuName;
+          //         this.danwei = res.data.danweiName;
+          //         this.keshi = res.data.keshi;
+          //         this.remark = res.data.remark;
+          //       });
+          //   }
+          // },
         }
     }
 </script>
